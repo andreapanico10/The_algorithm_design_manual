@@ -13,6 +13,9 @@
 # of the linked list
 def push(head_ref, new_number):
  
+    if head_ref == None:
+        return None
+    
     # allocate node
     new_node = ListNode(0)
      
@@ -44,7 +47,14 @@ def linkedListToList(head):
 # of the linked list
 def removeLastNode(head):
     
+    if head == None:
+        return None
+    
     second_last = head
+   
+    if head.next == None:
+        return None
+    
     while(second_last.next.next):
         second_last = second_last.next
     
@@ -52,6 +62,21 @@ def removeLastNode(head):
     second_last.next = None
     
     return head, last_element
+
+def getLinkListLen(head):
+    
+    list_len = 0
+    
+    if head == None:
+        return list_len
+    
+    second_last = head
+    list_len += 1
+    
+    while(second_last.next):
+        second_last = second_last.next
+        list_len += 1
+    return list_len
 
 class Solution(object):
 
@@ -62,7 +87,14 @@ class Solution(object):
         :type k: int
         :rtype: ListNode
         """
-        for i in range(k):
+        if head == None:
+            return None
+        if head.next == None or k == 0:
+            return head
+        
+        list_len = getLinkListLen(head)
+        
+        for i in range(k % list_len):
             head, last_elem = removeLastNode(head)
             head = push(head, last_elem.val)
         
